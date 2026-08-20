@@ -24,9 +24,10 @@
         <div class="product-info">
           <h3 class="product-title">Vela Camomila & Mel</h3>
           <p class="product-desc">Proporciona efeito relaxante e sensação de aconchego para o ambiente.</p>
+          <p class="product-price">R$ 25,00</p>
         </div>
         <div style="padding: 1.2rem; padding-top: 0;">
-          <button class="btn" onclick="selecionarFragrancia('Camomila & Mel')">Reservar Esta</button>
+          <button class="btn" type="button" onclick="adicionarVela('Camomila & Mel')">Adicionar à reserva</button>
         </div>
       </div>
 
@@ -34,9 +35,10 @@
         <div class="product-info">
           <h3 class="product-title">Vela Capim-Limão</h3>
           <p class="product-desc">Aroma cítrico revigorante, ideal para renovar as energias da casa.</p>
+          <p class="product-price">R$ 25,00</p>
         </div>
         <div style="padding: 1.2rem; padding-top: 0;">
-          <button class="btn" onclick="selecionarFragrancia('Capim-Limão')">Reservar Esta</button>
+          <button class="btn" type="button" onclick="adicionarVela('Capim-Limão')">Adicionar à reserva</button>
         </div>
       </div>
 
@@ -44,9 +46,10 @@
         <div class="product-info">
           <h3 class="product-title">Vela Baunilha Real</h3>
           <p class="product-desc">Toque adocicado e marcante, criando uma atmosfera acolhedora.</p>
+          <p class="product-price">R$ 25,00</p>
         </div>
         <div style="padding: 1.2rem; padding-top: 0;">
-          <button class="btn" onclick="selecionarFragrancia('Baunilha Real')">Reservar Esta</button>
+          <button class="btn" type="button" onclick="adicionarVela('Baunilha Real')">Adicionar à reserva</button>
         </div>
       </div>
 
@@ -54,9 +57,10 @@
         <div class="product-info">
           <h3 class="product-title">Vela Alecrim Silvestre</h3>
           <p class="product-desc">Estimula a concentração e traz o frescor da natureza para perto de você.</p>
+          <p class="product-price">R$ 25,00</p>
         </div>
         <div style="padding: 1.2rem; padding-top: 0;">
-          <button class="btn" onclick="selecionarFragrancia('Alecrim Silvestre')">Reservar Esta</button>
+          <button class="btn" type="button" onclick="adicionarVela('Alecrim Silvestre')">Adicionar à reserva</button>
         </div>
       </div>
     </div>
@@ -84,7 +88,7 @@
         </div>
 
         <div class="form-group">
-          <label for="fragrancia">Fragrância Desejada *</label>
+          <label for="fragrancia">Adicionar vela à reserva *</label>
           <select id="fragrancia" required>
             <option value="">-- Selecione uma Fragrância --</option>
             <option value="Camomila & Mel">Camomila & Mel</option>
@@ -102,6 +106,27 @@
           min="1" 
           value="1" 
           required>
+        </div>
+
+        <button type="button" class="btn btn-secondary" id="adicionarVelaBtn">Adicionar vela</button>
+
+        <div id="itensReserva" class="reservation-items" aria-live="polite">
+          <p class="empty-items">Nenhuma vela adicionada ainda.</p>
+        </div>
+
+        <div class="reservation-total">
+          Total da reserva: <strong id="valorTotal">R$ 0,00</strong>
+        </div>
+
+        <div class="form-group">
+          <label for="formaPagamento">Forma de pagamento *</label>
+          <select id="formaPagamento" required>
+            <option value="">-- Selecione uma opção --</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="credito">Crédito</option>
+            <option value="debito">Débito</option>
+            <option value="pix">Pix</option>
+          </select>
         </div>
 
         <button type="submit" class="btn">Confirmar Reserva para Retirada</button>

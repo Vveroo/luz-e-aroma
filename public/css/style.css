@@ -79,6 +79,13 @@ header p {
   margin-bottom: 1rem;
 }
 
+.product-price {
+  color: var(--primary-hover);
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin: 0;
+}
+
 .btn {
   background-color: var(--primary);
   color: white;
@@ -93,6 +100,45 @@ header p {
 
 .btn:hover {
   background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: #a1887f;
+  margin-bottom: 1.2rem;
+}
+
+.reservation-items {
+  border-top: 1px solid #e0d7d0;
+  margin-bottom: 1.2rem;
+}
+
+.reservation-item {
+  align-items: center;
+  border-bottom: 1px solid #e0d7d0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr auto auto;
+  padding: 0.8rem 0;
+}
+
+.remove-item {
+  background: none;
+  border: 0;
+  color: #9b2c2c;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.empty-items {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.8rem 0;
+}
+
+.reservation-total {
+  margin-bottom: 1.2rem;
+  text-align: right;
 }
 
 .form-container {
