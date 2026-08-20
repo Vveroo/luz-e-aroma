@@ -28,7 +28,7 @@ document.getElementById('reservaForm').addEventListener('submit', async function
   };
 
   try {
-    const resposta = await fetch('http://localhost:3000/api/reservas', {
+    const resposta = await fetch('/api/reservas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dadosReserva)
