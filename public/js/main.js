@@ -60,6 +60,7 @@ document.getElementById('reservaForm').addEventListener('submit', async function
 
   const nome = document.getElementById('nome').value.trim();
   const telefone = document.getElementById('telefone').value.trim();
+  const formaPagamento = document.getElementById('formaPagamento').value;
 
   // Validação rápida de tamanho antes do envio
   if (nome.length < 3) {
@@ -77,11 +78,16 @@ document.getElementById('reservaForm').addEventListener('submit', async function
     return;
   }
 
+  if (!formaPagamento) {
+    alert('Selecione uma forma de pagamento.');
+    return;
+  }
+
   const dadosReserva = {
     nome_cliente: nome,
     telefone: telefone,
     itens: itensReserva,
-    forma_pagamento: document.getElementById('formaPagamento').value
+    forma_pagamento: formaPagamento
   };
 
   try {
@@ -91,11 +97,13 @@ document.getElementById('reservaForm').addEventListener('submit', async function
       body: JSON.stringify(dadosReserva)
     });
 
+    const resultado = await resposta.json();
+
     if (resposta.ok) {
       document.getElementById('reservaForm').style.display = 'none';
       document.getElementById('mensagemSucesso').style.display = 'block';
     } else {
-      alert('Ocorreu um erro ao enviar a reserva. Verifique os dados e tente novamente.');
+      alert(resultado.erro || 'Ocorreu um erro ao enviar a reserva.');
     }
   } catch (erro) {
     console.error('Erro de conexão:', erro);
