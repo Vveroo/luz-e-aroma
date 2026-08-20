@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luz & Aroma - Mostruário & Reservas</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🕯️ Luz & Aroma</h1>
+    <p>Mostruário Digital de Velas Artesanais - Reserve para Retirada</p>
+  </header>
+
+  <div class="container">
+    
+    <div style="text-align: center;">
+      <h2 class="section-title">Nosso Mostruário</h2>
+    </div>
+
+    <div class="catalog">
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Vela Camomila & Mel</h3>
+          <p class="product-desc">Proporciona efeito relaxante e sensação de aconchego para o ambiente.</p>
+        </div>
+        <div style="padding: 1.2rem; padding-top: 0;">
+          <button class="btn" onclick="selecionarFragrancia('Camomila & Mel')">Reservar Esta</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Vela Capim-Limão</h3>
+          <p class="product-desc">Aroma cítrico revigorante, ideal para renovar as energias da casa.</p>
+        </div>
+        <div style="padding: 1.2rem; padding-top: 0;">
+          <button class="btn" onclick="selecionarFragrancia('Capim-Limão')">Reservar Esta</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Vela Baunilha Real</h3>
+          <p class="product-desc">Toque adocicado e marcante, criando uma atmosfera acolhedora.</p>
+        </div>
+        <div style="padding: 1.2rem; padding-top: 0;">
+          <button class="btn" onclick="selecionarFragrancia('Baunilha Real')">Reservar Esta</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-info">
+          <h3 class="product-title">Vela Alecrim Silvestre</h3>
+          <p class="product-desc">Estimula a concentração e traz o frescor da natureza para perto de você.</p>
+        </div>
+        <div style="padding: 1.2rem; padding-top: 0;">
+          <button class="btn" onclick="selecionarFragrancia('Alecrim Silvestre')">Reservar Esta</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-container" id="area-reserva">
+      <h2 style="margin-top: 0; text-align: center;">Formulário de Reserva</h2>
+      
+      <form id="reservaForm">
+        <div class="form-group">
+          <label for="nome">Nome Completo *</label>
+          <input 
+          type="text" 
+          id="nome" 
+          required placeholder="Digite seu nome"
+          pattern="[A-Za-zÁ-ÿ\s]+">
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone / WhatsApp *</label>
+          <input 
+          type="tel" 
+          id="telefone"
+          required maxlength="15"
+          required placeholder="(00) 90000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="fragrancia">Fragrância Desejada *</label>
+          <select id="fragrancia" required>
+            <option value="">-- Selecione uma Fragrância --</option>
+            <option value="Camomila & Mel">Camomila & Mel</option>
+            <option value="Capim-Limão">Capim-Limão</option>
+            <option value="Baunilha Real">Baunilha Real</option>
+            <option value="Alecrim Silvestre">Alecrim Silvestre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="quantidade">Quantidade Desejada *</label>
+          <input 
+          type="number" 
+          id="quantidade" 
+          min="1" 
+          value="1" 
+          required>
+        </div>
+
+        <button type="submit" class="btn">Confirmar Reserva para Retirada</button>
+      </form>
+
+      <div id="mensagemSucesso" class="alert-success">
+        <strong>Reserva Realizada com Sucesso!</strong><br>
+        Sua solicitação foi registrada. Aguardamos você no balcão da loja para a retirada.
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/masks.js"></script>
+</body>
+</html>
