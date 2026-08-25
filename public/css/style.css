@@ -219,8 +219,60 @@ header h1 span { color: #e5ad83; }
 .form-group input:focus, .form-group select:focus { border-color: var(--terracotta); outline: 2px solid rgba(180, 95, 70, 0.18); }
 .alert-success { background: #e3eadb; color: #34432f; display: none; margin-top: 1rem; padding: 1rem; text-align: center; }
 
+.site-footer {
+  background: var(--ink);
+  color: #f4eee5;
+  padding: 3.5rem 1rem 1.2rem;
+}
+
+.footer-inner {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.footer-brand p:not(.eyebrow), .footer-column p {
+  color: #c8beb2;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
+}
+
+.footer-brand small { color: #9e9489; font-size: 0.72rem; }
+
+.footer-column h2 {
+  color: #e5ad83;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+.footer-column a {
+  color: #f4eee5;
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.65rem;
+  text-decoration: none;
+}
+
+.footer-column a:hover { color: #e5ad83; }
+
+.footer-bottom {
+  border-top: 1px solid #514943;
+  color: #9e9489;
+  font-size: 0.72rem;
+  margin: 3rem auto 0;
+  max-width: 1000px;
+  padding-top: 1.2rem;
+}
+
 @media (max-width: 600px) {
   .container { padding: 3.5rem 1rem; }
   .catalog { grid-template-columns: 1fr; margin-bottom: 4rem; }
   .form-container { padding: 2rem 1.25rem; }
+  .footer-inner { gap: 2rem; grid-template-columns: 1fr; }
+  .footer-bottom { margin-top: 2.5rem; }
 }
