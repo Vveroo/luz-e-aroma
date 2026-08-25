@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
@@ -17,7 +18,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Inicializa a conexão com o Supabase
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = supabaseUrl && supabaseKey
+  ? createClient(supabaseUrl, supabaseKey)
+  : null;
 
 const PRECOS_VELAS = {
   'Camomila & Mel': 25,
@@ -38,6 +41,10 @@ app.get('/api', (req, res) => {
 
 // Rota POST: Enviar nova reserva
 app.post('/api/reservas', async (req, res) => {
+  if (!supabase) {
+    return res.status(503).json({ erro: 'Configure SUPABASE_URL e SUPABASE_KEY no arquivo .env.' });
+  }
+
   const { nome_cliente, telefone, fragrancia, quantidade, forma_pagamento, itens } = req.body;
 
   if (!nome_cliente || !telefone || !forma_pagamento) {
@@ -57,28 +64,20 @@ app.post('/api/reservas', async (req, res) => {
     return res.status(400).json({ erro: 'Informe ao menos uma vela com quantidade válida.' });
   }
 
-  const quantidadeTotal = itensReserva.reduce((total, item) => total + Number(item.quantidade), 0);
-  const valorFinal = itensReserva.reduce(
-    (total, item) => total + PRECOS_VELAS[item.fragrancia] * Number(item.quantidade),
-    0
-  );
-  const descricaoFragrancias = itensReserva
-    .map((item) => `${item.fragrancia} (${item.quantidade}x)`)
-    .join(', ');
+  const pedidoId = crypto.randomUUID();
 
   try {
     const { data, error } = await supabase
       .from('reservas')
-      .insert([
-        {
-          nome_cliente,
-          telefone,
-          fragrancia: descricaoFragrancias,
-          quantidade: quantidadeTotal,
-          valor_final: valorFinal,
-          forma_pagamento
-        }
-      ])
+      .insert(itensReserva.map((item) => ({
+        pedido_id: pedidoId,
+        nome_cliente,
+        telefone,
+        fragrancia: item.fragrancia,
+        quantidade: Number(item.quantidade),
+        valor_final: PRECOS_VELAS[item.fragrancia] * Number(item.quantidade),
+        forma_pagamento
+      })))
       .select();
 
     if (error) {
@@ -98,6 +97,10 @@ app.post('/api/reservas', async (req, res) => {
 
 // Rota GET: Listar reservas
 app.get('/api/reservas', async (req, res) => {
+  if (!supabase) {
+    return res.status(503).json({ erro: 'Configure SUPABASE_URL e SUPABASE_KEY no arquivo .env.' });
+  }
+
   try {
     const { data, error } = await supabase
       .from('reservas')
