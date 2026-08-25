@@ -9,14 +9,20 @@
 <body>
 
   <header>
-    <h1>🕯️ Luz & Aroma</h1>
-    <p>Mostruário Digital de Velas Artesanais - Reserve para Retirada</p>
+    <div class="header-inner">
+      <p class="eyebrow">Feito à mão, aceso com calma</p>
+      <h1>Luz <span>&</span> Aroma</h1>
+      <p class="header-copy">Velas artesanais para transformar pequenos momentos em rituais.</p>
+      <a class="header-link" href="#area-reserva">Fazer uma reserva <span aria-hidden="true">↘</span></a>
+    </div>
   </header>
 
   <div class="container">
     
-    <div style="text-align: center;">
+    <div class="section-heading">
+      <p class="eyebrow">Coleção da estação</p>
       <h2 class="section-title">Nosso Mostruário</h2>
+      <p class="section-intro">Quatro aromas, uma pausa merecida no meio do dia.</p>
     </div>
 
     <div class="catalog">
@@ -26,7 +32,7 @@
           <p class="product-desc">Proporciona efeito relaxante e sensação de aconchego para o ambiente.</p>
           <p class="product-price">R$ 25,00</p>
         </div>
-        <div style="padding: 1.2rem; padding-top: 0;">
+        <div class="product-action">
           <button class="btn" type="button" onclick="adicionarVela('Camomila & Mel')">Adicionar à reserva</button>
         </div>
       </div>
@@ -37,7 +43,7 @@
           <p class="product-desc">Aroma cítrico revigorante, ideal para renovar as energias da casa.</p>
           <p class="product-price">R$ 25,00</p>
         </div>
-        <div style="padding: 1.2rem; padding-top: 0;">
+        <div class="product-action">
           <button class="btn" type="button" onclick="adicionarVela('Capim-Limão')">Adicionar à reserva</button>
         </div>
       </div>
@@ -48,7 +54,7 @@
           <p class="product-desc">Toque adocicado e marcante, criando uma atmosfera acolhedora.</p>
           <p class="product-price">R$ 25,00</p>
         </div>
-        <div style="padding: 1.2rem; padding-top: 0;">
+        <div class="product-action">
           <button class="btn" type="button" onclick="adicionarVela('Baunilha Real')">Adicionar à reserva</button>
         </div>
       </div>
@@ -59,14 +65,16 @@
           <p class="product-desc">Estimula a concentração e traz o frescor da natureza para perto de você.</p>
           <p class="product-price">R$ 25,00</p>
         </div>
-        <div style="padding: 1.2rem; padding-top: 0;">
+        <div class="product-action">
           <button class="btn" type="button" onclick="adicionarVela('Alecrim Silvestre')">Adicionar à reserva</button>
         </div>
       </div>
     </div>
 
     <div class="form-container" id="area-reserva">
-      <h2 style="margin-top: 0; text-align: center;">Formulário de Reserva</h2>
+      <p class="eyebrow">Da nossa bancada para a sua casa</p>
+      <h2>Formulário de Reserva</h2>
+      <p class="form-intro">Escolha seus aromas. Deixamos tudo preparado para você retirar na loja.</p>
       
       <form id="reservaForm">
         <div class="form-group">
