@@ -67,7 +67,8 @@ function atualizarResumo(lista) {
 function renderizarPedidos() {
   const busca = document.getElementById('busca').value.trim().toLowerCase();
   const pagamento = document.getElementById('filtroPagamento').value;
-  const status = document.getElementById('filtroStatus').value;
+  const filtroStatus = document.getElementById('filtroStatus');
+  const status = filtroStatus ? filtroStatus.value : 'todos';
   const filtrados = pedidos.filter((pedido) => {
     const correspondeBusca = !busca || `${pedido.cliente} ${pedido.telefone}`.toLowerCase().includes(busca);
     const correspondePagamento = pagamento === 'todos' || pedido.pagamento === pagamento;
@@ -149,6 +150,7 @@ async function carregarPedidos() {
 
 document.getElementById('busca').addEventListener('input', renderizarPedidos);
 document.getElementById('filtroPagamento').addEventListener('change', renderizarPedidos);
-document.getElementById('filtroStatus').addEventListener('change', renderizarPedidos);
+const filtroStatus = document.getElementById('filtroStatus');
+if (filtroStatus) filtroStatus.addEventListener('change', renderizarPedidos);
 document.getElementById('atualizarBtn').addEventListener('click', carregarPedidos);
 carregarPedidos();
