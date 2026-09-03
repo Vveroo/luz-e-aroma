@@ -154,3 +154,4 @@ const filtroStatus = document.getElementById('filtroStatus');
 if (filtroStatus) filtroStatus.addEventListener('change', renderizarPedidos);
 document.getElementById('atualizarBtn').addEventListener('click', carregarPedidos);
 carregarPedidos();
+setInterval(carregarPedidos, 30000);
