@@ -130,11 +130,19 @@ app.patch('/api/reservas/:pedidoId/status', async (req, res) => {
     return res.status(400).json({ erro: 'Status de pedido inválido.' });
   }
 
+  const identificador = req.params.pedidoId;
+  const identificadorNumerico = Number(identificador);
+  const ehUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(identificador);
+  if (!ehUuid && (!Number.isInteger(identificadorNumerico) || identificadorNumerico < 1)) {
+    return res.status(400).json({ erro: 'Identificador de pedido inválido.' });
+  }
+
   try {
-    const { error } = await supabase
-      .from('reservas')
-      .update({ status })
-      .eq('pedido_id', req.params.pedidoId);
+    let consulta = supabase.from('reservas').update({ status });
+    consulta = ehUuid
+      ? consulta.eq('pedido_id', identificador)
+      : consulta.eq('id', identificadorNumerico);
+    const { error } = await consulta;
 
     if (error) throw error;
     res.json({ mensagem: 'Status atualizado com sucesso.', status });
