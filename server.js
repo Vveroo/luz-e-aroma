@@ -80,7 +80,8 @@ app.post('/api/reservas', async (req, res) => {
         fragrancia: item.fragrancia,
         quantidade: Number(item.quantidade),
         valor_final: PRECOS_VELAS[item.fragrancia] * Number(item.quantidade),
-        forma_pagamento
+        forma_pagamento,
+        status: 'pendente'
       })))
       .select();
 
@@ -116,6 +117,30 @@ app.get('/api/reservas', async (req, res) => {
     res.json(data);
   } catch (err) {
     res.status(500).json({ erro: 'Erro ao buscar reservas.' });
+  }
+});
+
+app.patch('/api/reservas/:pedidoId/status', async (req, res) => {
+  if (!supabase) {
+    return res.status(503).json({ erro: 'Configure SUPABASE_URL e SUPABASE_KEY no arquivo .env.' });
+  }
+
+  const { status } = req.body;
+  if (!['pendente', 'entregue'].includes(status)) {
+    return res.status(400).json({ erro: 'Status de pedido inválido.' });
+  }
+
+  try {
+    const { error } = await supabase
+      .from('reservas')
+      .update({ status })
+      .eq('pedido_id', req.params.pedidoId);
+
+    if (error) throw error;
+    res.json({ mensagem: 'Status atualizado com sucesso.', status });
+  } catch (err) {
+    console.error('Erro ao atualizar status:', err);
+    res.status(500).json({ erro: 'Erro ao atualizar status do pedido.' });
   }
 });
 

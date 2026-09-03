@@ -42,7 +42,8 @@ function agruparPedidos(reservas) {
         data: reserva.data_reserva,
         itens: [],
         total: 0,
-        quantidadeTotal: 0
+        quantidadeTotal: 0,
+        status: reserva.status || 'pendente'
       };
     }
 
@@ -66,10 +67,12 @@ function atualizarResumo(lista) {
 function renderizarPedidos() {
   const busca = document.getElementById('busca').value.trim().toLowerCase();
   const pagamento = document.getElementById('filtroPagamento').value;
+  const status = document.getElementById('filtroStatus').value;
   const filtrados = pedidos.filter((pedido) => {
     const correspondeBusca = !busca || `${pedido.cliente} ${pedido.telefone}`.toLowerCase().includes(busca);
     const correspondePagamento = pagamento === 'todos' || pedido.pagamento === pagamento;
-    return correspondeBusca && correspondePagamento;
+    const correspondeStatus = status === 'todos' || pedido.status === status;
+    return correspondeBusca && correspondePagamento && correspondeStatus;
   });
 
   atualizarResumo(filtrados);
@@ -99,8 +102,33 @@ function renderizarPedidos() {
             <span class="payment-tag payment-${pedido.pagamento}">${nomePagamento[pedido.pagamento] || pedido.pagamento || 'Não informado'}</span>
           </div>
         </div>
+        <div class="order-footer">
+          <span class="order-status status-${pedido.status}">${pedido.status === 'entregue' ? 'Pedido entregue' : 'Aguardando retirada'}</span>
+          <button class="delivery-button" type="button" data-pedido-id="${pedido.id}" data-status="${pedido.status}">${pedido.status === 'entregue' ? 'Reabrir pedido' : 'Marcar como entregue'}</button>
+        </div>
       </div>
     </article>`).join('') : '<div class="empty-state"><strong>Nada por aqui ainda.</strong><span>Altere os filtros ou aguarde novas reservas.</span></div>';
+
+  pedidosElement.querySelectorAll('.delivery-button').forEach((botao) => {
+    botao.addEventListener('click', () => atualizarStatus(botao.dataset.pedidoId, botao.dataset.status === 'entregue' ? 'pendente' : 'entregue'));
+  });
+}
+
+async function atualizarStatus(pedidoId, status) {
+  try {
+    const resposta = await fetch(`/api/reservas/${encodeURIComponent(pedidoId)}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    });
+    const resultado = await resposta.json();
+    if (!resposta.ok) throw new Error(resultado.erro || 'Não foi possível atualizar o pedido.');
+    const pedido = pedidos.find((item) => item.id === pedidoId);
+    if (pedido) pedido.status = status;
+    renderizarPedidos();
+  } catch (erro) {
+    alert(erro.message);
+  }
 }
 
 async function carregarPedidos() {
@@ -121,5 +149,6 @@ async function carregarPedidos() {
 
 document.getElementById('busca').addEventListener('input', renderizarPedidos);
 document.getElementById('filtroPagamento').addEventListener('change', renderizarPedidos);
+document.getElementById('filtroStatus').addEventListener('change', renderizarPedidos);
 document.getElementById('atualizarBtn').addEventListener('click', carregarPedidos);
 carregarPedidos();
