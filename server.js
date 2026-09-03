@@ -34,6 +34,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // Rota de teste
 app.get('/api', (req, res) => {
   res.json({ mensagem: 'API da Loja Luz & Aroma funcionando perfeitamente!' });

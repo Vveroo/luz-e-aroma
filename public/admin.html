@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin | Luz & Aroma</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <div>
+        <p class="brand-mark">Luz <span>&</span> Aroma</p>
+        <p class="eyebrow">Operação da loja</p>
+        <h1>Pedidos</h1>
+        <p class="header-copy">Acompanhe as reservas recebidas e prepare cada retirada com tranquilidade.</p>
+      </div>
+      <div class="header-actions">
+        <span class="live-status"><i></i> Banco conectado</span>
+        <a class="store-link" href="/">Ver loja <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="summary-grid" aria-label="Resumo dos pedidos">
+      <article class="summary-card summary-card-highlight">
+        <span class="summary-label">Pedidos recebidos</span>
+        <strong id="totalPedidos">--</strong>
+        <span class="summary-note">reservas agrupadas</span>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">Velas reservadas</span>
+        <strong id="totalVelas">--</strong>
+        <span class="summary-note">unidades no período</span>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">Faturamento previsto</span>
+        <strong id="faturamento">--</strong>
+        <span class="summary-note">valor das reservas</span>
+      </article>
+    </section>
+
+    <section class="orders-section">
+      <div class="section-topline">
+        <div>
+          <p class="eyebrow">Central de reservas</p>
+          <h2>Pedidos recentes</h2>
+        </div>
+        <button id="atualizarBtn" class="refresh-button" type="button" title="Atualizar pedidos">
+          <span aria-hidden="true">↻</span> Atualizar
+        </button>
+      </div>
+
+      <div class="filters" role="search">
+        <label class="search-field">
+          <span class="sr-only">Buscar por cliente ou telefone</span>
+          <span aria-hidden="true">⌕</span>
+          <input id="busca" type="search" placeholder="Buscar cliente ou telefone">
+        </label>
+        <label class="filter-field">
+          <span class="sr-only">Filtrar por pagamento</span>
+          <select id="filtroPagamento">
+            <option value="todos">Todos os pagamentos</option>
+            <option value="pix">Pix</option>
+            <option value="credito">Crédito</option>
+            <option value="debito">Débito</option>
+            <option value="dinheiro">Dinheiro</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="status" class="status-message" aria-live="polite">Carregando pedidos...</div>
+      <div id="pedidos" class="orders-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

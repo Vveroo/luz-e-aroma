@@ -4,11 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 1. Validação do Nome: Apenas letras e espaços (sem travar o cursor)
   if (nomeInput) {
-    // Força o texto a aparecer maiúsculo visualmente via CSS
     nomeInput.style.textTransform = 'capitalize';
 
     nomeInput.addEventListener('input', function () {
-      // Apenas remove caracteres inválidos (números/símbolos)
       this.value = this.value.replace(/[^a-zA-Aà-úÀ-Ú\s]/g, '');
     });
 
